@@ -32,6 +32,12 @@ MacOS
 1. Clone repository from git.
 2. Run `make new` and answer the questions on the screen.
 
+```bash
+    git clone https://github.com/the-unknown/strapi4-react-boilerplate.git
+    cd ./strapi4-react-boilerplate
+    make new
+```
+
 ## LOCAL Domains
 This boilerplate will setup the following local domains to ease handling and development (`projectname` is just an example for this readme. You will be able to freely choose your domain-name during setup)
 
