@@ -2,7 +2,7 @@
     container_name: ${COMPOSE_PROJECT_NAME}_strapi4
     image: node:fermium-slim
     working_dir: /srv 
-    command: /srv/run/develop.sh
+    command: sh -c "chmod +x /srv/run/develop.sh && exec /srv/run/develop.sh"
     environment:
       - DATABASE_CLIENT=mysql
       - DATABASE_HOST=db
