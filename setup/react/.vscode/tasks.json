@@ -1,0 +1,31 @@
+{
+  // See https://code.visualstudio.com/docs/editor/tasks#vscode
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run lint tests",
+      "type": "npm",
+      "script": "lint",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [],
+      "detail": "yarn run lint:js; yarn run lint:scss;"
+    },
+    {
+      "label": "Fix lint errors",
+      "type": "npm",
+      "script": "fmt",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [],
+      "detail": "yarn run fmt:js; yarn run fmt:scss"
+    }
+  ]
+}

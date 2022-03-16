@@ -1,0 +1,2 @@
+cms-fix:
+	make stop && sudo rm -rf apps/strapi/node_modules && make up

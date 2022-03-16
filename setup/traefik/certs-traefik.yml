@@ -1,0 +1,9 @@
+### only config from dynamic conf will take effect here since traefik v2. See:
+### https://doc.traefik.io/traefik/reference/dynamic-configuration/file/
+
+tls:
+  certificates:
+    - certFile: /tools/certs/showroom.local.crt
+      keyFile: /tools/certs/showroom.local.key
+
+

@@ -1,0 +1,8 @@
+  strapi:
+    container_name: strapi4
+    build: ../setup/docker/strapi4/
+    ports:
+      - 1337:1337
+    volumes:
+      - ../apps/strapi:/app/strapi
+

@@ -1,0 +1,29 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.4
+    container_name: ${COMPOSE_PROJECT_NAME}_traefik
+    # Enables the web UI and tells Traefik to listen to docker
+    command: 
+      - "--api.insecure=true" 
+      - "--providers.docker"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      # The HTTP port
+      - "80:80"
+      - "443:443"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8000:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      vpcbr:
+        ipv4_address: 10.1.10.2
+    labels:
+      - traefik.http.routers.traefik=true
+      - traefik.http.routers.api.entrypoints=web
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}_traefik.rule=Host(`traefik.${COMPOSE_PROJECT_NAME}.local`)
+

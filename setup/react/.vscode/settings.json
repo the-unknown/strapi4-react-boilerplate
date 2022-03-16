@@ -1,0 +1,26 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.associations": {
+    "*.stylelintrc": "json"
+  },
+  "files.exclude": {
+    "node_modules/": false,
+    ".yarn/": false,
+    "build/": false
+  },
+  "search.exclude": {
+    "build/": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".html", ".md", ".vue"],
+    "resolvePluginsRelativeTo": "./node_modules/.pnpm"
+  },
+  // yarn pnp settings for vscode extensions
+  "eslint.nodePath": ".yarn/sdks",
+  "stylelint.stylelintPath": "./node_modules/stylelint/lib/index.js",
+  "prettier.prettierPath": "./node_modules/prettier/index.js",
+  "git.ignoreLimitWarning": true
+}

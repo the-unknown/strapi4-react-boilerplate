@@ -1,0 +1,5 @@
+db-backup:
+	${DC} ${COMPOSE_FILES} exec db /bin/sh -c 'exec mysqldump --databases strapi -ustrapi -p"strapi"' > setup/strapi/database/data.sql
+
+db-restore:
+	${DC} ${COMPOSE_FILES} exec db /bin/sh -c 'exec mysql -ustrapi -p"strapi"' < setup/strapi/database/data.sql

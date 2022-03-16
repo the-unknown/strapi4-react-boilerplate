@@ -1,0 +1,14 @@
+  strapi:
+    container_name: ${COMPOSE_PROJECT_NAME}_strapi4
+    build: ../setup/docker/strapi4/
+    command: /srv/develop.sh 
+    ports:
+      - 1337:1337
+    volumes:
+      - ../apps/strapi:/app/strapi
+    networks:
+      vpcbr:
+        ipv4_address: 10.1.10.3
+    labels:
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}_strapi.entrypoints=web
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}_strapi.rule=Host(`cms.${COMPOSE_PROJECT_NAME}.local`)        

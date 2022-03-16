@@ -1,0 +1,5 @@
+cms-install:
+	${DC} ${COMPOSE_FILES} exec -T strapi /bin/sh -c "yarn create strapi-app tmp --quickstart --no-run && cd ./tmp/ && yarn strapi new strapi --dbclient=mysql --dbhost=127.0.0.1 --dbport=3306 --dbname=strapi --dbusername=strapi --dbpassword=strapi --dbforce && cp -a ./strapi/. /app/strapi/ && cd /app/strapi && yarn install && yarn build"
+
+cms-fix:
+	make stop && sudo rm -rf apps/strapi/node_modules && make up

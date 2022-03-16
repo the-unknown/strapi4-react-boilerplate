@@ -1,0 +1,34 @@
+# init react app
+ui-init: ui-install ui-build
+ui-build: ui-build-app
+
+# install react
+ui-setup:
+	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "cd .. && mkdir tmp && cd tmp && yarn create vite react --template react && cp -r ./react/* ../react/"
+
+# install react-ts
+ui-setup-ts:
+	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "cd .. && mkdir tmp && cd tmp && yarn create vite react --template react-ts && cp -r ./react/* ../react/"
+
+
+# install frontend dependencies
+ui-install:
+	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "yarn"
+
+# run test suite
+ui-test:
+	${DC} ${COMPOSE_FILES} exec node /bin/sh -c "yarn test"
+
+# build application
+ui-build-app:
+	${DC} ${COMPOSE_FILES} exec node /bin/sh -c "yarn build"
+
+# start react dev server
+ui-dev:
+	${DC} ${COMPOSE_FILES} exec node /bin/sh -c "yarn run dev --host"
+
+
+# add npm package
+ui-add:
+	@read -p "NPM Package? : " TAG \
+	&& ${DC} ${COMPOSE_FILES} exec node /bin/sh -c "yarn add $${TAG}"

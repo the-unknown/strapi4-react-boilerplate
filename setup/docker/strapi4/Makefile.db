@@ -1,0 +1,6 @@
+db-backup:
+	cp -rf apps/strapi/.tmp/data.db setup/strapi/database/data.db
+
+db-restore:
+	make stop && cp -rf setup/strapi/database/data.db apps/strapi/.tmp/data.db && make up
+

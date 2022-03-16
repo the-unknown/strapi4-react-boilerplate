@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "config": ["config/*"],
+      "dist": ["dist/*"],
+      "source": ["src/*"],
+      "tools": ["tools/*"],
+      "components": ["src/components/*"],
+      "storybook": [".storybook/*"],
+      "static": ["src/assets/static/*"],
+      "images": ["src/assets/images/*"],
+      "utils": ["src/utils/*"],
+      "sassUtils": ["src/utils/sass/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
