@@ -50,12 +50,15 @@ This boilerplate will setup the following local domains to ease handling and dev
 ## MAKE COMMANDS
 Important `make` commands are:
 
-- `make up` - starts up the docker servers
+- `make up` - starts up the docker containers
+- `make stop` - stops the docker containers
+- `make down` - stops the docker containers, removes them and removes the network (your data and files will still be there).
 - `make db-backup` - run this if you did changes to the strapi database and want to submit the changes to git.
 - `make db-restore` - run this command if you want to restore the strapi database from a previous backup or if you got a new backup via git.
 - `make ui-dev` - starts a node.js dev-server on port 3003
 - `make ui-add` - add npm packages 
-
+- `make ui-init` - runs "yarn" and "yarn build" on react.
+- `make ui-build` - makes a production build of react.
 
 ![Happy coding](https://media0.giphy.com/media/TilmLMmWrRYYHjLfub/giphy.gif)
 
