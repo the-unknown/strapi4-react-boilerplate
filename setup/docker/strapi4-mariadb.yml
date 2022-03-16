@@ -15,7 +15,7 @@
     volumes:
       - ../apps/strapi:/app/strapi
       - ../setup/strapi/dbconfig:/srv/config
-      - ..../setup/strapi/run:/srv/run
+      - ../setup/strapi/run:/srv/run
     depends_on:
       - db
     networks:
