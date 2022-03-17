@@ -2,6 +2,13 @@ FROM node:fermium-slim
 
 WORKDIR /srv
 
+RUN apt-get update&&\
+  apt-get install -y\
+    build-essential\
+    python\
+    sqlite3\
+    libsqlite3-dev
+
 RUN yarn create strapi-app strapi --no-run --quickstart
 RUN yarn --cwd ./strapi install
 RUN yarn --cwd ./strapi build
