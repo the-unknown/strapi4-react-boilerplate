@@ -34,6 +34,6 @@ ui-add:
 	&& ${DC} ${COMPOSE_FILES} exec node /bin/sh -c "yarn add $${TAG}"
 
 ui-localsetup:
-	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "mkdir /home/node/react/src/utils && cp /setup/react/*.js /home/node/react/src/utils && cp -r /setup/react/.vscode /home/node/react"
-	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "echo VITE_API_URL=//cms.${NAME}.local > /home/node/react/.env"
-	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "echo VITE_API_URL=//cms.${NAME}.local > /home/node/react/.env.local"
+	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "mkdir -p /home/node/react/src/utils && cp -a /setup/getApiData.js /home/node/react/src/utils && cp -a /setup/.vscode /home/node/react"
+	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "echo VITE_API_URL=//cms.${NAME}.local >> /home/node/react/.env"
+	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "echo VITE_API_URL=//cms.${NAME}.local >> /home/node/react/.env.local"
