@@ -245,10 +245,6 @@ echo " ";
 # printf '\e[1;32m%-6s\e[m' "done"
 # echo " ";
 
-printf "Setting .env files...."
-
-printf '\e[1;32m%-6s\e[m' "done"
-
 echo " ";
 echo " ";
 echo "--------------------------------------------------------"
