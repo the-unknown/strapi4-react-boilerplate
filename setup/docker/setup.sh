@@ -234,16 +234,6 @@ else
     exit
 fi
 echo " ";
-#cd apps/react && yarn &> /dev/null & pid=$!
-
-# printf "Installing node modules"
-# while kill -0 $pid 2>/dev/null
-# do
-#   printf "."
-#   sleep 1
-# done
-# printf '\e[1;32m%-6s\e[m' "done"
-# echo " ";
 
 echo " ";
 echo " ";
