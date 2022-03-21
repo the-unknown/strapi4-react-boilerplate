@@ -158,6 +158,7 @@ if [ $? -eq 0 ]; then
     printf '\e[1;32m%-6s\e[m' "done"
 else
     printf '\e[1;31m%-6s\e[m' "failed"
+    exit
 fi
 echo " ";
 
@@ -173,7 +174,9 @@ if [ $? -eq 0 ]; then
     printf '\e[1;32m%-6s\e[m' "done"
 else
     printf '\e[1;31m%-6s\e[m' "failed"
-fiecho " ";
+    exit
+fi
+echo " ";
 
 printf "Setting up React...."
 if [ ${react} == "ts" ]; then
@@ -191,6 +194,7 @@ if [ $? -eq 0 ]; then
     printf '\e[1;32m%-6s\e[m' "done"
 else
     printf '\e[1;31m%-6s\e[m' "failed"
+    exit
 fi
 docker cp setup/react/vite.config.js ${name}_node:/home/node/react
 echo " ";
@@ -207,14 +211,15 @@ if [ $? -eq 0 ]; then
     printf '\e[1;32m%-6s\e[m' "done"
 else
     printf '\e[1;31m%-6s\e[m' "failed"
+    exit
 fi
 echo " ";
 
-# printf "Creating directories and copying vscode utils...."
-# mkdir apps/react/src/utils && cp setup/react/*.js apps/react/src/utils && cp -r setup/react/.vscode apps/react 
-# printf '\e[1;32m%-6s\e[m' "done"
-# echo " ";
-# cd apps/react && yarn &> /dev/null & pid=$!
+printf "Creating directories and copying vscode utils...."
+mkdir apps/react/src/utils && cp setup/react/*.js apps/react/src/utils && cp -r setup/react/.vscode apps/react 
+printf '\e[1;32m%-6s\e[m' "done"
+echo " ";
+cd apps/react && yarn &> /dev/null & pid=$!
 
 # printf "Installing node modules"
 # while kill -0 $pid 2>/dev/null
@@ -225,10 +230,10 @@ echo " ";
 # printf '\e[1;32m%-6s\e[m' "done"
 # echo " ";
 
-# printf "Setting .env files...."
-# echo "VITE_API_URL=//cms.${name}.local" > apps/react/.env
-# echo "VITE_API_URL=//cms.${name}.local" > apps/react/.env.local
-# printf '\e[1;32m%-6s\e[m' "done"
+printf "Setting .env files...."
+echo "VITE_API_URL=//cms.${name}.local" > apps/react/.env
+echo "VITE_API_URL=//cms.${name}.local" > apps/react/.env.local
+printf '\e[1;32m%-6s\e[m' "done"
 
 echo " ";
 echo " ";
