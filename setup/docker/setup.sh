@@ -154,7 +154,11 @@ while kill -0 $pid 2>/dev/null
         printf "."
         sleep 1
     done
-printf '\e[1;32m%-6s\e[m' "done"
+if [ $? -eq 0 ]; then
+    printf '\e[1;32m%-6s\e[m' "done"
+else
+    printf '\e[1;31m%-6s\e[m' "failed"
+fi
 echo " ";
 
 printf "Starting the docker container...."
@@ -165,8 +169,11 @@ while kill -0 $pid 2>/dev/null
         printf "."
         sleep 1
     done
-printf '\e[1;32m%-6s\e[m' "done"
-echo " ";
+if [ $? -eq 0 ]; then
+    printf '\e[1;32m%-6s\e[m' "done"
+else
+    printf '\e[1;31m%-6s\e[m' "failed"
+fiecho " ";
 
 printf "Setting up React...."
 if [ ${react} == "ts" ]; then
@@ -180,8 +187,12 @@ while kill -0 $pid 2>/dev/null
         printf "."
         sleep 1
     done
+if [ $? -eq 0 ]; then
+    printf '\e[1;32m%-6s\e[m' "done"
+else
+    printf '\e[1;31m%-6s\e[m' "failed"
+fi
 docker cp setup/react/vite.config.js ${name}_node:/home/node/react
-printf '\e[1;32m%-6s\e[m' "done"
 echo " ";
 
 printf "Setting up Strapi...."
@@ -192,8 +203,11 @@ while kill -0 $pid 2>/dev/null
         printf "."
         sleep 1
     done
-docker cp setup/react/vite.config.js ${name}_node:/home/node/react
-printf '\e[1;32m%-6s\e[m' "done"
+if [ $? -eq 0 ]; then
+    printf '\e[1;32m%-6s\e[m' "done"
+else
+    printf '\e[1;31m%-6s\e[m' "failed"
+fi
 echo " ";
 
 # printf "Creating directories and copying vscode utils...."
