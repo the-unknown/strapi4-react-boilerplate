@@ -1,6 +1,11 @@
 #!/bin/bash
 clear;
 
+if [ -f .env ]
+then
+  export $(cat .env | sed 's/#.*//g' | xargs)
+fi
+
 
 
 echo -e " \e[32m"
@@ -215,11 +220,21 @@ else
 fi
 echo " ";
 
-printf "Creating directories and copying vscode utils...."
-mkdir apps/react/src/utils && cp setup/react/*.js apps/react/src/utils && cp -r setup/react/.vscode apps/react 
-printf '\e[1;32m%-6s\e[m' "done"
+printf "Creating directories, copying vscode utils and setting .env files...."
+make ui-localsetup NAME = ${name} &> /dev/null & pid=$!
+while kill -0 $pid 2>/dev/null
+    do
+        printf "."
+        sleep 1
+    done
+if [ $? -eq 0 ]; then
+    printf '\e[1;32m%-6s\e[m' "done"
+else
+    printf '\e[1;31m%-6s\e[m' "failed"
+    exit
+fi
 echo " ";
-cd apps/react && yarn &> /dev/null & pid=$!
+#cd apps/react && yarn &> /dev/null & pid=$!
 
 # printf "Installing node modules"
 # while kill -0 $pid 2>/dev/null
@@ -231,8 +246,7 @@ cd apps/react && yarn &> /dev/null & pid=$!
 # echo " ";
 
 printf "Setting .env files...."
-echo "VITE_API_URL=//cms.${name}.local" > apps/react/.env
-echo "VITE_API_URL=//cms.${name}.local" > apps/react/.env.local
+
 printf '\e[1;32m%-6s\e[m' "done"
 
 echo " ";

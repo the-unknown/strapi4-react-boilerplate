@@ -10,6 +10,7 @@
       - 3003:3003
     volumes:
       - ../apps/react:/home/node/react
+      - ../setup/react:/setup
     labels:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}_node.rule=Host(`dev.${COMPOSE_PROJECT_NAME}.local`)
 
