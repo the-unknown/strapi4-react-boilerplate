@@ -4,6 +4,7 @@
 
 This boilerplate will setup Docker container with React and Strapi 4. During the setup process you can choose between to following options:
 
+* NextJS or React
 * React with JavaScript
 * React with TypeScript
 * Strapi with SQLite
