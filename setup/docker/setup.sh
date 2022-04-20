@@ -25,7 +25,11 @@ echo "Please answer the following questions to setup your techstack.";
 strapiMaria () {
     cat setup/docker/base.yml > docker/docker-compose.yml
     cat setup/docker/strapi4-mariadb.yml >> docker/docker-compose.yml
-    cat setup/docker/react.yml >> docker/docker-compose.yml
+    if [ ${next} == "false" ]; then
+        cat setup/docker/react.yml >> docker/docker-compose.yml
+    else
+        cat setup/docker/next.yml >> docker/docker-compose.yml
+    fi
     cat setup/docker/network.yml >> docker/docker-compose.yml
     cp setup/docker/strapi4-mariadb/Makefile.db .
     cp setup/docker/strapi4-mariadb/Makefile.cms .
@@ -36,7 +40,11 @@ strapiMaria () {
 strapiSqlite () {
     cat setup/docker/base.yml > docker/docker-compose.yml
     cat setup/docker/strapi4-sqlite.yml >> docker/docker-compose.yml
-    cat setup/docker/react.yml >> docker/docker-compose.yml
+    if [ ${next} == "false" ]; then
+        cat setup/docker/react.yml >> docker/docker-compose.yml
+    else
+        cat setup/docker/next.yml >> docker/docker-compose.yml
+    fi
     cat setup/docker/network.yml >> docker/docker-compose.yml
     cp setup/docker/strapi4/Makefile.db .
     cp setup/docker/strapi4/Makefile.cms .
@@ -83,7 +91,72 @@ echo "COMPOSE_PROJECT_NAME=${name}" > docker/.env;
 echo " ";
 echo "--------------------------------------------------------"
 echo " ";
-echo "2. You need to select the database system. ";
+echo "2. Please select, if you want to use pure React or NextJS? ";
+
+js=("React" "NextJS" "Quit")
+select fav in "${js[@]}"; do
+    case $fav in
+        "React")
+            echo "You have chosen: $fav "
+            next=false
+	    # optionally call a function or run some code here
+        break
+            ;;
+        "NextJS")
+            echo "Your choice: $fav "
+            next=true
+	    # optionally call a function or run some code here
+	    break
+            ;;
+	"Quit")
+	    echo "User requested exit"
+	    exit
+	    ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done    
+
+if [ ${next} == "false" ]; then
+
+    echo " ";
+    echo "--------------------------------------------------------"
+    echo " ";
+    echo "3. Please select, if you want to use React with JavaScript or TypeScript? ";
+
+    js=("JavaScript" "TypeScript" "Quit")
+    select fav in "${js[@]}"; do
+        case $fav in
+            "JavaScript")
+                echo "You have chosen: $fav "
+                react=js
+            # optionally call a function or run some code here
+            break
+                ;;
+            "TypeScript")
+                echo "Your choice: $fav "
+                react=ts
+            # optionally call a function or run some code here
+            break
+                ;;
+        "Quit")
+            echo "User requested exit"
+            exit
+            ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done    
+
+fi
+echo " ";
+
+echo " ";
+echo "--------------------------------------------------------"
+echo " ";
+if [ ${next} == "false" ]; then
+    echo "4. You need to select the database system. ";
+else    
+    echo "3. You need to select the database system. ";
+fi
 echo "Would you like to use Strapi in cobination with MariaDB or SQLite?";
 
 db=("MariaDB" "SQLite" "Quit")
@@ -112,33 +185,7 @@ done
 echo "CFILES=-f docker/docker-compose.yml" > .env;
 echo "CFILES=-f docker/docker-compose.yml" > .env.local;
 
-echo " ";
-echo "--------------------------------------------------------"
-echo " ";
-echo "3. Please select, if you want to use React with JavaScript or TypeScript? ";
 
-js=("JavaScript" "TypeScript" "Quit")
-select fav in "${js[@]}"; do
-    case $fav in
-        "JavaScript")
-            echo "You have chosen: $fav "
-            react=js
-	    # optionally call a function or run some code here
-        break
-            ;;
-        "TypeScript")
-            echo "Your choice: $fav "
-            react=ts
-	    # optionally call a function or run some code here
-	    break
-            ;;
-	"Quit")
-	    echo "User requested exit"
-	    exit
-	    ;;
-        *) echo "invalid option $REPLY";;
-    esac
-done    
 
 echo " ";
 echo "--------------------------------------------------------"
@@ -183,26 +230,47 @@ else
 fi
 echo " ";
 
-printf "Setting up React...."
-if [ ${react} == "ts" ]; then
-    make ui-setup-ts ui-install &> /dev/null & pid=$!
+if [ ${next} == "false" ]; then
+
+    printf "Setting up React...."
+    if [ ${react} == "ts" ]; then
+        make ui-setup-ts ui-install &> /dev/null & pid=$!
+    else
+        make ui-setup ui-install &> /dev/null & pid=$!
+    fi
+
+    while kill -0 $pid 2>/dev/null
+        do
+            printf "."
+            sleep 1
+        done
+    if [ $? -eq 0 ]; then
+        printf '\e[1;32m%-6s\e[m' "done"
+    else
+        printf '\e[1;31m%-6s\e[m' "failed"
+        exit
+    fi
+    docker cp setup/react/vite.config.js ${name}_node:/home/node/react
+    echo " ";
+
 else
-    make ui-setup ui-install &> /dev/null & pid=$!
+    printf "Setting up Next...."
+    make next-setup ui-install &> /dev/null & pid=$!
+
+    while kill -0 $pid 2>/dev/null
+        do
+            printf "."
+            sleep 1
+        done
+    if [ $? -eq 0 ]; then
+        printf '\e[1;32m%-6s\e[m' "done"
+    else
+        printf '\e[1;31m%-6s\e[m' "failed"
+        exit
+    fi
+    echo " ";
 fi
 
-while kill -0 $pid 2>/dev/null
-    do
-        printf "."
-        sleep 1
-    done
-if [ $? -eq 0 ]; then
-    printf '\e[1;32m%-6s\e[m' "done"
-else
-    printf '\e[1;31m%-6s\e[m' "failed"
-    exit
-fi
-docker cp setup/react/vite.config.js ${name}_node:/home/node/react
-echo " ";
 
 printf "Setting up Strapi...."
 make cms-install up &> /dev/null & pid=$!

@@ -10,6 +10,10 @@ ui-setup:
 ui-setup-ts:
 	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "cd .. && mkdir tmp && cd tmp && yarn create vite react --template react-ts && cp -r ./react/* ../react/"
 
+# install next
+next-setup:
+	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "cd .. && mkdir tmp && cd tmp && yarn create next-app next && cp -r ./next/* ../next/"
+
 
 # install frontend dependencies
 ui-install:
@@ -25,7 +29,7 @@ ui-build-app:
 
 # start react dev server
 ui-dev:
-	${DC} ${COMPOSE_FILES} exec node /bin/sh -c "yarn run dev --host"
+	${DC} ${COMPOSE_FILES} exec node /bin/sh -c "yarn run dev"
 
 
 # add npm package
@@ -37,3 +41,7 @@ ui-localsetup:
 	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "mkdir -p /home/node/react/src/utils && cp -a /setup/getApiData.js /home/node/react/src/utils && cp -a /setup/.vscode /home/node/react"
 	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "echo VITE_API_URL=//cms.${NAME}.local >> /home/node/react/.env"
 	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "echo VITE_API_URL=//cms.${NAME}.local >> /home/node/react/.env.local"
+
+next-localsetup:
+	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "mkdir -p /home/node/next/src/utils && cp -a /setup/getApiData.js /home/node/next/src/utils && cp -a /setup/.vscode /home/node/next"
+
