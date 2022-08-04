@@ -23,7 +23,7 @@
       - ../setup/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       vpcbr:
-        ipv4_address: 10.1.10.5
+        ipv4_address: 10.1.%n.5
     labels:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}_react.entrypoints=web
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}_react.rule=Host(`www.${COMPOSE_PROJECT_NAME}.local`,`${COMPOSE_PROJECT_NAME}.local`)

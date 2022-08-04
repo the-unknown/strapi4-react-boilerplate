@@ -8,7 +8,7 @@
       - ../apps/strapi:/app/strapi
     networks:
       vpcbr:
-        ipv4_address: 10.1.10.3
+        ipv4_address: 10.1.%n.3
     labels:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}_strapi.entrypoints=web
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}_strapi.rule=Host(`cms.${COMPOSE_PROJECT_NAME}.local`)        

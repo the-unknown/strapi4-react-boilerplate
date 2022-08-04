@@ -3,5 +3,5 @@ networks:
     driver: bridge
     ipam:
      config:
-       - subnet: 10.1.0.0/16
-         gateway: 10.1.10.1
+       - subnet: 10.1.%n.0/16
+         gateway: 10.1.%n.1

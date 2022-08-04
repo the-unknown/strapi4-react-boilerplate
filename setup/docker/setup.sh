@@ -76,6 +76,21 @@ setName () {
     fi
 }
 
+setIP () {
+    #read a number between 1 and 254. if the number is not between 1 and 254 ask the user to enter a number between 1 and 254.
+    echo -n "Set the IP-Subnet of your project: ";
+    read -e ip;
+    if [ "$ip" -lt "1" ] || [ "$ip" -gt "254" ]; then
+        echo "Please enter a number between 1 and 254.";
+        setIP
+    fi
+    echo "";
+    echo -e "Your IP-Subnet will be \e[32m10.1.${ip}.0\e[0m";
+    #open the file docker/docker-compose.yml and replace %n with the number the user entered.
+    sed -i "s/%n/${ip}/g" docker/docker-compose.yml;
+
+}
+
 
 echo " ";
 echo "--------------------------------------------------------"
@@ -185,7 +200,14 @@ done
 echo "CFILES=-f docker/docker-compose.yml" > .env;
 echo "CFILES=-f docker/docker-compose.yml" > .env.local;
 
-
+echo " ";
+echo "--------------------------------------------------------"
+echo " ";
+echo -n "Finally, we need to setup the IP-Subnet of this project. ";
+echo "This is the internal network of your docker containers and it is preset to 10.1.###.0. You need to specify the missing part of the IP-Subnet.";
+echo -e "Therefor please enter a number between 1 and 254 '-' eg: \e[34m 8 \e[0m --> \e[32m 10.1.8.0 \e[0m ";
+echo "This will avoid conflicts with other docker containers.";
+setIP
 
 echo " ";
 echo "--------------------------------------------------------"
@@ -304,6 +326,7 @@ fi
 echo " ";
 
 echo " ";
+
 echo " ";
 echo "--------------------------------------------------------"
 echo " ";
