@@ -1,5 +1,5 @@
   node:
-    image: node:fermium-slim
+    image: node:hydrogen-slim
     container_name: ${COMPOSE_PROJECT_NAME}_node
     mem_limit: 2G
     environment:  

@@ -12,7 +12,7 @@ ui-setup-ts:
 
 # install next
 next-setup:
-	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "cd .. && mkdir tmp && cd tmp && yarn create next-app next && cp -r ./next/* ../next/"
+	${DC} ${COMPOSE_FILES} exec -T node /bin/sh -c "cd .. && mkdir tmp && cd tmp && yarn create next-app next --js --eslint && cp -r ./next/* ../next/"
 
 
 # install frontend dependencies

@@ -4,4 +4,8 @@ cms-fix:
 # add npm package
 cms-add:
 	@read -p "NPM Package? : " TAG \
-	&& ${DC} ${COMPOSE_FILES} exec strapi /bin/sh -c "cd /app/strapi && yarn add $${TAG}"	
+	&& ${DC} ${COMPOSE_FILES} exec strapi /bin/sh -c "cd /app/strapi && yarn add $${TAG}" && make cms-build
+
+# building strapi
+cms-build:
+	${DC} ${COMPOSE_FILES} exec strapi /bin/sh -c "cd /app/strapi && yarn build"

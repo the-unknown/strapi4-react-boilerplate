@@ -1,5 +1,5 @@
   node:
-    image: node:fermium-slim
+    image: node:hydrogen-slim
     container_name: ${COMPOSE_PROJECT_NAME}_node
     mem_limit: 2G
     working_dir: /home/node/next    
@@ -17,7 +17,7 @@
     hostname: next
     container_name: ${COMPOSE_PROJECT_NAME}_next
     volumes:
-      - ../apps/react/dist:/usr/share/nginx/html
+      - ../apps/next/dist:/usr/share/nginx/html
       - ../setup/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       vpcbr:
