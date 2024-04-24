@@ -1,4 +1,4 @@
-FROM node:fermium-slim
+FROM node:hydrogen-slim
 
 WORKDIR /srv
 
