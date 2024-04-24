@@ -24,4 +24,4 @@ EXPOSE 1337
 
 VOLUME ["/app/strapi"]
 
-CMD ["/srv/start.sh"]
+CMD ["/srv/develop.sh"]
