@@ -49,7 +49,7 @@ export GID=$(id -g)
 COMPOSE_FILES = $(CFILES)
 
 # Shortcuts. 
-DC=docker-compose --env-file .env 
+DC=docker compose --env-file .env 
 ## 
 ## Alias to start the project ## 
 
