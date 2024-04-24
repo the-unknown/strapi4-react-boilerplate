@@ -5,7 +5,8 @@ WORKDIR /srv
 RUN apt-get update&&\
   apt-get install -y\
     build-essential\
-    python\
+    python3\
+    python-is-python3\
     sqlite3\
     libsqlite3-dev
 

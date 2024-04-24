@@ -2,9 +2,9 @@ FROM node:hydrogen-slim
 
 WORKDIR /srv
 
-#RUN yarn create strapi-app strapi --no-run --quickstart
-#RUN yarn --cwd ./strapi install
-#RUN yarn --cwd ./strapi build
+RUN yarn create strapi-app strapi --no-run --quickstart
+RUN yarn --cwd ./strapi install
+RUN yarn --cwd ./strapi build
 
 RUN echo 'if [ -f "/app/strapi/package.json" ]; then' >> start.sh
 RUN echo '  yarn --cwd /app/strapi && yarn --cwd /app/strapi start' >> start.sh
